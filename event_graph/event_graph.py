@@ -82,7 +82,7 @@ class CreatePage:
 
     '''生成html文件'''
     def create_html(self, data_nodes, data_edges):
-        f = open('travel_event_graph.html', 'w+')
+        f = open('travel_event_graph.html', 'w+', encoding='utf-8')
         html = self.base.replace('data_nodes', str(data_nodes)).replace('data_edges', str(data_edges))
         f.write(html)
         f.close()
@@ -96,7 +96,7 @@ class EventGraph:
     def collect_events(self):
         event_dict = {}
         node_dict = {}
-        for line in open('seq_events.txt'):
+        for line in open('seq_events.txt', encoding='utf-8'):
             event = line.strip()
             if not event:
                 continue

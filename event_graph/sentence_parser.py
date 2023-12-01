@@ -8,18 +8,19 @@ from pyltp import Segmentor, Postagger, Parser, NamedEntityRecognizer
 
 class LtpParser():
     def __init__(self):
-        LTP_DIR = "./ltp_data"
-        self.segmentor = Segmentor()
-        self.segmentor.load(os.path.join(LTP_DIR, "cws.model"))
+        LTP_DIR = 'F:/Code/231201/ltp_data/ltp_data_v3.4.0'
 
-        self.postagger = Postagger()
-        self.postagger.load(os.path.join(LTP_DIR, "pos.model"))
+        cws_model_path = os.path.join(LTP_DIR, 'cws.model')
+        self.segmentor = Segmentor(cws_model_path)
 
-        self.parser = Parser()
-        self.parser.load(os.path.join(LTP_DIR, "parser.model"))
+        pos_model_path = os.path.join(LTP_DIR, 'pos.model')
+        self.postagger = Postagger(pos_model_path)
 
-        self.recognizer = NamedEntityRecognizer()
-        self.recognizer.load(os.path.join(LTP_DIR, "ner.model"))
+        parser_model_path = os.path.join(LTP_DIR, 'parser.model')
+        self.parser = Parser(parser_model_path)
+
+        ner_model_path = os.path.join(LTP_DIR, 'ner.model')
+        self.recognizer = NamedEntityRecognizer(ner_model_path)
 
     '''ltp基本操作'''
     def basic_parser(self, words):
@@ -126,8 +127,8 @@ class LtpParser():
         postags = ['w'] + postags
         tuples = list()
         for index in range(len(words)-1):
-            arc_index = arcs[index].head
-            arc_relation = arcs[index].relation
+            arc_index = arcs[index][0]  # arcs[index].head
+            arc_relation = arcs[index][1]  # arcs[index].relation
             tuples.append([index+1, words[index+1], postags[index+1], words[arc_index], postags[arc_index], arc_index, arc_relation])
 
         return tuples

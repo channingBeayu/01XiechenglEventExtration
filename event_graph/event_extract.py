@@ -4,17 +4,17 @@
 # Author: lhy<lhy_in_blcu@126.com,https://huangyong.github.io>
 # Date: 18-7-15
 
-import pymongo
+import mysql.connector
 import re
 import jieba
 from sentence_parser import *
 
 class EventGraph:
     def __init__(self):
-        conn = pymongo.MongoClient()
+        self.conn = mysql.connector.connect(host='localhost', user='root', passwd='root',
+                                       db='xiecheng', charset='utf8')
         self.pattern = re.compile(r'(.*)(其次|然后|接着|随后|接下来)(.*)')
-        self.col = conn['travel']['doc']
-        self.col_insert = conn['travel']['events']
+        self.cursor = self.conn.cursor()
         self.parse_handler = LtpParser()
 
     '''长句切分'''
@@ -23,18 +23,25 @@ class EventGraph:
 
     '''短句切分'''
     def process_subsent(self, content):
-        return [s for s in re.split(r'[,、，和与及且跟（）~▲．]', content) if len(s)>1]
+        return [s for s in re.split(r'[,、，和与及且跟（）~▲．]', content) if len(s) > 1]
 
     '''处理数据库中的文本'''
     def process_doc(self):
-        count = 0
-        for item in self.col.find():
-            content = item['content']
-            events_all = self.collect_event(content)
+        sql = "select content from travels limit 1000"
+        self.cursor.execute(sql)
+        contents = self.cursor.fetchall()  # 取出所有数据
+
+        for content in contents:
+            events_all = self.collect_event(content[0])
             if events_all:
-                data = {}
-                data['events'] = events_all
-                self.col_insert.insert(data)
+                # data = {}
+                # data['events'] = events_all
+                # self.col_insert.insert(data)
+
+                sql = "insert into events(event) values (%s)"
+                self.cursor.execute(sql, (str(events_all), ))
+                self.conn.commit()
+
             else:
                 continue
 

@@ -1,7 +1,7 @@
 # coding=utf-8
 import scrapy
 from urllib import request
-import pymongo
+# import pymongo
 from lxml import etree
 from travelspider.items import TravelspiderItem
 
@@ -14,6 +14,7 @@ class TravelSpider(scrapy.Spider):
             response = request.urlopen(url)
             page = response.read().decode('utf-8')
             urls = self.get_urls(page)
+            i = 0
             if urls:
                 for url in urls:
                     try:
@@ -22,6 +23,10 @@ class TravelSpider(scrapy.Spider):
                         yield scrapy.Request(url=url, meta=param, callback=self.page_parser, dont_filter=True)
                     except:
                         pass
+                    i += 1
+                    if i == 200:
+                        return
+
 
     '''获取url列表'''
     def get_urls(self, content):

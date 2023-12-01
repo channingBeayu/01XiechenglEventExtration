@@ -1,5 +1,7 @@
 # EvolutionaryEventGraph
-Evolutionary Event Graph based on Travel note crawled from XieCheng，基于50W携程出行攻略的顺承事件抽取与事件图谱构建.  
+Evolutionary Event Graph based on Travel note crawled from XieCheng，基于50W携程出行攻略的顺承事件抽取与事件图谱构建. 
+
+[liuhuanyong/SequentialEventExtration: Sequential Event Experiment based on Travel note crawled from XieCheng，基于50W携程出行游记的采集与顺承事件图谱构建． (github.com)](https://github.com/liuhuanyong/SequentialEventExtration) 
 
 # 项目来源
 目前,以谓词性短语作为事件表示的方法方兴未艾,针对特定领域,构建起特定领域的顺承事件图谱,可以支持事件推理,基于事件的意图识别与推荐等多项运用.
@@ -45,7 +47,7 @@ image:游记顺承事件图谱效果图
             107353 冬季到鄱阳湖边的余干县看鸟，多张美图记录环湖游全过程 - 余干游记攻略【携程攻略】
             107354 2014.十一沈阳，本溪老边沟，枫叶大道，丹东，不走重复路，古迹，景色5日穷游 - 沈阳游记攻略【携程攻略】
             107355 库不齐老牛湾之户外行走 - 库布齐沙漠游记攻略【携程攻略】
-             
+        
 # 二   基于出行语料的顺承事件图谱构建
 # 1, 顺承事件的抽取  
 event_extract.py, 思想步骤如下:  

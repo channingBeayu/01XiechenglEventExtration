@@ -1,0 +1,8 @@
+
+1、利用scrapy运行爬虫程序(scrapy crawl travel)，把数据存到mysql的xiecheng数据库的travels数据表
+
+2、粗略的顺承事件抽取，保存到events数据表。该过程包括正则匹配(和及跟、然后/其次..)、仅提取VOB关系..
+
+中间少了一环，seq_events文件的生成，我觉得应该是根据events数据表一对一对地拼接的
+
+3、图谱展示：选择前500个重要事件，调js库生成html，展示图谱
